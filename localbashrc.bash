@@ -27,7 +27,7 @@ if [[ $_uname == MSYS || $_uname == GitBash ]]; then
 	fi
 
 	shopt -s completion_strip_exe
-	_pc2=$(sed -E 's/@\\h/& \\[\\e[35m\\]$MSYSTEM/' <<<$_pc2)
+	PROMPT_COMMAND=$(sed -E 's/@\\h/& \\[\\e[35m\\]$MSYSTEM/' <<<$PROMPT_COMMAND)
 	alias open=start
 	if [[ $_uname == MSYS ]]; then
 		upgrade()
