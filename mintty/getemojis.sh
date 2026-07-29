@@ -1,7 +1,18 @@
 #!/bin/bash
 set -euo pipefail
 
-mintty=$(wslpath "$(powershell.exe -NoProfile 'Get-Content Env:APPDATA' | tr -d '\r')")/mintty
+pspath()
+{
+	local cmd
+	if type cygpath &>/dev/null; then
+		cygpath "$(powershell.exe -NoProfile "$1")"
+	else
+		wslpath "$(powershell.exe -NoProfile "$1" | tr -d '\r')"
+	fi
+}
+
+appdata=$(pspath 'Get-Content Env:APPDATA')
+mintty=$appdata/mintty
 
 cd $mintty
 rm -rf emojis
