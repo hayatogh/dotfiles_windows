@@ -27,7 +27,10 @@ GitBash|MSYS)
 
 	shopt -s completion_strip_exe
 	_pc2=$(sed -E 's/@\\h/& \\[\\e[35m\\]$MSYSTEM/' <<<$_pc2)
-	alias open=start
+	open()
+	{
+		start "$@"
+	}
 	;;&
 GitBash)
 	printf '\e]l;Git Bash\a'
@@ -51,6 +54,3 @@ WSL)
 	alias shutdown='wsl.exe --shutdown'
 	;;
 esac
-if type __git_ps1 &>/dev/null; then
-	PROMPT_COMMAND=$_pc
-fi
